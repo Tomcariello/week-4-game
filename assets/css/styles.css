@@ -6,7 +6,17 @@
 	border: 1px solid black;
 	text-align: center;
 	margin:5px;
+	width: 275px;
 }
 #human {
+	clear:both;
+}
+#attack {
+	clear: both;
+}
+#currentEnemy {
+	clear:both;
+}
+#enemies {
 	clear:both;
 }
