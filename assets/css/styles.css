@@ -1,0 +1,12 @@
+.character {
+	height: 200px;
+}
+.card {
+	float: left;
+	border: 1px solid black;
+	text-align: center;
+	margin:5px;
+}
+#human {
+	clear:both;
+}
