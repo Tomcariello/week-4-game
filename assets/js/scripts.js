@@ -21,34 +21,64 @@ function startGame() {
 
 	for (i=0;i<charactersArray.length; i++) {
 		var createCharacterCard = ("<div id=" + i + " class='card options'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
-		console.log(createCharacterCard);
+		// console.log(createCharacterCard);
 		$( "#allCharacters" ).append( createCharacterCard );
 	}
+};
 
+
+$(document).ready(function() {
 
 	//on click, send images into the correct buckets
 	$('.options').on('click', function(event) {
 		//determine which was clicked by obtaining the array index
 		var characterID = this.id;
+		console.log("you selected " + charactersArray[characterID].name);
 	
 		//load variable to write the selected character into the "Your Character" box
-		var selectedCharacter = ("<div id=" + characterID + " class='card options'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
+		var selectedCharacter = ("<div id=" + characterID + " class='card human'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
 		$( "#human" ).append( selectedCharacter );
 
 		//move all others into #enemies
 		for (i=0;i<charactersArray.length; i++) {
 			if (i != characterID) {
-				var createEnemyCard = ("<div id=" + i + " class='card options'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
-				console.log(createEnemyCard);
+				var createEnemyCard = ("<div id=" + i + " class='card enemy'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
+				// console.log(createEnemyCard);
 				$( "#enemies" ).append( createEnemyCard );
 			}
 		}
 		
 		//kill all 4 original objects
 		$("#allCharacters").empty();
+		selectEnemy();
 	});
 
-};
+function selectEnemy() {
+	//on click, send images into the correct buckets
+	$('.enemy').on('click', function(event) {
+		//determine which enemy was clicked by obtaining the array index
+		var enemyID = this.id;
+		console.log("you selected the enemy " + charactersArray[enemyID].name);
+	
+		//load variable to write the enemy character into the "Current Enemy" box
+		var selectedEnemy = ("<div id=" + enemyID + " class='card currentEnemy'><h3>" + charactersArray[enemyID].name + "</h3><img src=" + imgPath + charactersArray[enemyID].image + " height=200px><h4>Health: " + charactersArray[enemyID].health + "</h4></div>");
+		$( "#currentEnemy" ).append( selectedEnemy );
+		
+		//remove current enemy from all enemies box
+		this.remove();
+
+		//remove class "enemy" from remaining 2 enemies
+		removeEnemyClass();
+	});
+
+}
+
+function removeEnemyClass() {
+	// console.log("removing enemy class");
+	$('.enemy').removeClass("enemy").addClass("waiting");
+}
+
+});
 
 
 	//     $('.letter-button').on('click', function() {
