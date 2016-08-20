@@ -1,20 +1,35 @@
+header {
+	width:100%;
+	text-align: center;
+}
+.headerImage {
+	width:70%;
+}
+.left {
+	float:left;
+	width:25%;
+}
 #allCharacters {
 	text-align: center;
 	width:100%;
+	float: left;
 }
 .character {
 	height: 200px;
 }
 .card {
-	float: left;
+	/*float: left;*/
 	text-align: center;
-	width: 25%;
+	/*width: 25%;*/
 }
 #human {
 	width: 100%;
+	height:400px;
 	float: left;
 	text-align: center;
-	background-color: green;
+	display: none;
+	margin
+	/*background-color: green;*/
 }
 #attack {
 	clear: both;
@@ -22,15 +37,33 @@
 }
 #currentEnemy {
 	width: 100%;
+	height:400px;
 	float: left;
 	text-align: center;
-	background-color: blue;
+	display: none;
+	/*background-color: blue;*/
 }
 
 #enemies {
 	clear:both;
 	text-align: center;
+	display: none;
 }
 #attackButton {
 	margin: 20px;
+	display: none;
+}
+#VS {
+	width: 100%;
+	height:400px;
+	margin-top: 178px;
+	display: none;
+}
+.col-md-2 {
+    text-align: center;
+}
+h2 {
+	text-decoration: underline;
+	margin-bottom: 15px;
+	color: yellow;
 }
