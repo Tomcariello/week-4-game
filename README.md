@@ -6,6 +6,7 @@ Add star wars logo
 center all images
 hide containers until they are used
 Add reset button
+Move last enemy into current enemy field automatically
 
 Stretch Goals
 add damage indicator on each attack. 
