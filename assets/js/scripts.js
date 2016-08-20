@@ -56,6 +56,7 @@ $(document).ready(function() {
 		
 		//kill all 4 original objects
 		$("#allCharacters").empty();
+		$("#allCharacters").html();
 		selectFirstEnemy();
 	});
 

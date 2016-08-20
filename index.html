@@ -3,6 +3,7 @@
 <head>
 	<title>
 	</title>
+	<link rel="stylesheet" type="text/css" href="https://bootswatch.com/cyborg/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="assets/js/scripts.js"></script>
@@ -10,28 +11,31 @@
 </head>
 <body>
 
+
 <div id="allCharacters">
 	<h2>SHOW ALL CHARACTERS HERE</h2>
-
-
 </div>
 
-<div id="human">
-	<h2>Your Character</h2>
-	<div id="playerCard">
+
+<row>
+	<div class="col-md-5">
+		<div id="human">
+			<h2>Your Character</h2>
+			<div id="playerCard">
+			</div>
+		</div>
 	</div>
-
-</div>
+	<div class="col-md-5">
+		<div id="currentEnemy">
+			<h2>Current Enemy</h2>
+			<div id="currentEnemyCard">
+			</div>
+		</div>
+	</div>
+</row>
 
 <div id="attack">
-	<button id="attackButton">Attack!
-</div>
-
-<div id="currentEnemy">
-	<h2>Current Enemy</h2>
-	<div id="currentEnemyCard">
-	</div>
-
+	<button type="button" id="attackButton" class="btn btn-default">Attack!</button>
 </div>
 
 <div id="enemies">

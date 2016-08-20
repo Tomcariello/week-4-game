@@ -1,22 +1,36 @@
+#allCharacters {
+	text-align: center;
+	width:100%;
+}
 .character {
 	height: 200px;
 }
 .card {
 	float: left;
-	border: 1px solid black;
 	text-align: center;
-	margin:5px;
-	width: 275px;
+	width: 25%;
 }
 #human {
-	clear:both;
+	width: 100%;
+	float: left;
+	text-align: center;
+	background-color: green;
 }
 #attack {
 	clear: both;
+	text-align: center;
 }
 #currentEnemy {
-	clear:both;
+	width: 100%;
+	float: left;
+	text-align: center;
+	background-color: blue;
 }
+
 #enemies {
 	clear:both;
+	text-align: center;
+}
+#attackButton {
+	margin: 20px;
 }
