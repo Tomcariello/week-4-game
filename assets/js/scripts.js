@@ -1,24 +1,17 @@
 //create objects for each character
-
-
-
-
-
-var ackbar  = {name: "Admiral Ackbar", image: "ackbar.png", health: 100, strength: 10, counterAttack: 9};
-var boba    = {name: "Boba Fett", image: "boba.png", health: 100, strength: 11, counterAttack: 8};
-var greedo  = {name: "Greedo", image: "greedo.png", health: 100, strength: 12, counterAttack: 7};
-var porkins = {name: "Porkins", image: "porkins.png", health: 100, strength: 13, counterAttack: 6};
-
-
-
-
-
+var ackbar  = {name: "Admiral Ackbar", image: "ackbar.png", health: 160, strength: 12, counterAttack: 36};
+var boba    = {name: "Boba Fett", image: "boba.png", health: 190, strength: 11, counterAttack: 32};
+var greedo  = {name: "Greedo", image: "greedo.png", health: 175, strength: 10, counterAttack: 30};
+var porkins = {name: "Porkins", image: "porkins.png", health: 130, strength: 14, counterAttack: 40};
 
 var characterID = 999;
-var firstEnemyID = 999;
-var firstEnemy = 0;
-var firstAttack = 0;
+var isEnemySelectedID = 999;
+var isEnemySelected = 0;
+var readyForAttack = 0;
 var initialStrength = 0;
+var winTotal = 0;
+var lossTotal = 0;
+var numberOfEnemiesKilled = 0;
 
 imgPath = "assets/images/";
 var charactersArray = [ackbar,boba,greedo,porkins];
@@ -35,61 +28,80 @@ function startGame() {
 		// 	b.text(letters[i]);
 		// 	$( "#buttons" ).append( b );
 		// }
-
+	$('#allCharacters').css("display","block");
+	$('#newGame').css("display","none");
 	for (i=0;i<charactersArray.length; i++) {
 		var createCharacterCard = ("<div id=" + i + " class='left card options'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
 		// console.log(createCharacterCard);
 		$( "#allCharacters" ).append( createCharacterCard );
 	}
+	selectHumanCharacter();
 };
 
 
-$(document).ready(function() {
+// $(document).ready(function() {
 
-	//on click, send images into the correct buckets
-	$('.options').on('click', function(event) {
-		//determine which was clicked by obtaining the array index
-		characterID = this.id;
-		// console.log("you selected " + charactersArray[characterID].name);
-		initialStrength = charactersArray[characterID].strength;
-	
-		//load variable to write the selected character into the "Your Character" box
-		var selectedCharacter = ("<div id=" + characterID + " class='card human'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
-		$( "#playerCard" ).append( selectedCharacter );
-
-		//move all others into #enemies
-		for (i=0;i<charactersArray.length; i++) {
-			if (i != characterID) {
-				var createEnemyCard = ("<div id=" + i + " class='left card enemy'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
-				// console.log(createEnemyCard);
-				$( "#enemies" ).append( createEnemyCard );
-			}
-		}
+	//on selection of player character, send images into the correct buckets
+	function selectHumanCharacter() {
+		$('.options').on('click', function(event) {
+			//determine which was clicked by obtaining the array index
+			characterID = this.id;
+			initialStrength = charactersArray[characterID].strength;
 		
-		//kill all 4 original objects
-		$("#allCharacters").empty();
-		$("#allCharacters").html();
-		selectFirstEnemy();
+			//load variable to write the selected character into the "Your Character" box
+			var selectedCharacter = ("<div id=" + characterID + " class='card human'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
+			$( "#playerCard" ).append( selectedCharacter );
+			$( "#human").css("display", "block");
+
+			//move all others into #enemies
+			for (i=0;i<charactersArray.length; i++) {
+				if (i != characterID) {
+					var createEnemyCard = ("<div id=" + i + " class='left card enemy'><h3>" + charactersArray[i].name + "</h3><img src=" + imgPath + charactersArray[i].image + " height=200px><h4>Health: " + charactersArray[i].health + "</h4></div>");
+					// console.log(createEnemyCard);
+					$( "#enemyCardHolder" ).append( createEnemyCard );
+					$( "#enemies").css("display", "block");
+				}
+			}
+			
+			//kill all 4 original objects
+			$("#allCharacters").empty();
+			selectEnemy();
+		});
+	}
+
+	$('#playAgain').on('click', function(event) {
+		//reset all players health
+		ackbar.health = 160;
+		boba.health = 190;
+		greedo.health = 175;
+		porkins.health = 130;
+
+		//reset humanplayer's strength to the original value
+		charactersArray[characterID].strength = initialStrength;
+
+		//clear html elements
+		$('#playerCard').empty();
+		$('#currentEnemyCard').empty();
+
+		characterID = 999;
+		isEnemySelectedID = 999;
+		isEnemySelected = 0;
+		readyForAttack = 0;
+		initialStrength = 0;
+		numberOfEnemiesKilled = 0;
+
+		startGame();
 	});
 
 
-
-
-
-
-
-
 	$('#attackButton').on('click', function(event) {
-		if (firstAttack == 1) {
-		
-		// console.log(charactersArray[characterID].name + " attacks for " + charactersArray[characterID].strength + " points.");
-				
+		if (readyForAttack == 1) {
 		//Subtract player STRENGTH from enemy HEALTH
-		charactersArray[firstEnemyID].health = charactersArray[firstEnemyID].health - charactersArray[characterID].strength;
-		// console.log(charactersArray[firstEnemyID].name + " health is " + charactersArray[firstEnemyID].health);
+		charactersArray[isEnemySelectedID].health = charactersArray[isEnemySelectedID].health - charactersArray[characterID].strength;
+		// console.log(charactersArray[isEnemySelectedID].name + " health is " + charactersArray[isEnemySelectedID].health);
 		
 		//update Health displayed under enemy
-		rePrint = ("<div id=" + firstEnemyID + " class='card currentEnemy'><h3>" + charactersArray[firstEnemyID].name + "</h3><img src=" + imgPath + charactersArray[firstEnemyID].image + " height=200px><h4>Health: " + charactersArray[firstEnemyID].health + "</h4></div>");
+		rePrint = ("<div id=" + isEnemySelectedID + " class='card currentEnemy'><h3>" + charactersArray[isEnemySelectedID].name + "</h3><img src=" + imgPath + charactersArray[isEnemySelectedID].image + " height=200px><h4>Health: " + charactersArray[isEnemySelectedID].health + "</h4></div>");
 		$( "#currentEnemyCard" ).html("");
 		$( "#currentEnemyCard" ).append( rePrint );
 
@@ -97,12 +109,31 @@ $(document).ready(function() {
 		charactersArray[characterID].strength = charactersArray[characterID].strength + initialStrength;
 		
 		//check for death
-		if (charactersArray[firstEnemyID].health < 1) {
-			alert(charactersArray[firstEnemyID].name + " is dead!");
-			firstEnemy = 0;
+		if (charactersArray[isEnemySelectedID].health < 1) {
+			alert(charactersArray[isEnemySelectedID].name + " is dead!");
+			numberOfEnemiesKilled++;
+			if (numberOfEnemiesKilled == 3) {
+				winTotal++;
+				$('#winTotal').html(winTotal);
+				$('#human').css("display","none");
+				$('#allCharacters').css("display","none");
+
+				$('#human').css("display","none");
+				$('#VS').css("display","none");
+				$('#currentEnemy').css("display","none");
+				$('#attack').css("display","none");
+				$('#enemies').css("display","none");
+				$('#newGame').css("display","block");
+				return;
+			}
+
+			isEnemySelected = 0;
+			$( "#currentEnemy").css("display", "none");
+			$( "#VS").css("display", "none");
 			$( "#currentEnemyCard" ).html("");
-			selectFirstEnemy();
-			firstAttack = 0;
+			$( '#enameyWaitingList').html("Select your next opponent");
+			selectEnemy();
+			readyForAttack = 0;
 
 		//Are there enemies left??
 		
@@ -111,37 +142,66 @@ $(document).ready(function() {
 		}
 	}
 	});
-});
+// });
 
 
 function enemyAttack() {
 		//Substract enemy's COUNTER from player's HEALTH
-		charactersArray[characterID].health = charactersArray[characterID].health - charactersArray[firstEnemyID].strength;
-		console.log(charactersArray[firstEnemyID].name + " counter attacks for " + charactersArray[firstEnemyID].strength + " points.");
+		charactersArray[characterID].health = charactersArray[characterID].health - charactersArray[isEnemySelectedID].counterAttack;
+		console.log(charactersArray[isEnemySelectedID].name + " counter attacks for " + charactersArray[isEnemySelectedID].counterAttack + " points.");
 		
 		//update Health displayed under player
 		rePrint = ("<div id=" + characterID + " class='card currentEnemy'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
 		$( "#playerCard" ).html("");
 		$( "#playerCard" ).append( rePrint );
+		
 		//check for death
+		if (charactersArray[characterID].health < 1) {
+			alert(charactersArray[characterID].name + " is dead!");
+			lossTotal++;
+			$('#lossTotal').html(lossTotal);
+
+			//hide all elements
+			$('#human').css("display","none");
+			$('#allCharacters').css("display","none");
+			$('#human').css("display","none");
+			$('#VS').css("display","none");
+			$('#currentEnemy').css("display","none");
+			$('#attack').css("display","none");
+			$('#enemies').css("display","none");
+
+			//Show new game div
+			$('#newGame').css("display","block");
+
+			isEnemySelected = 0;
+			$( "#currentEnemyCard" ).html("");
+			$( '#eneameyWaitingList').html("Select your next opponent");
+			$( '#enemyCardHolder').html("");
+			selectEnemy();
+			readyForAttack = 0;
+			return;
+			}
 }
 
 
-function selectFirstEnemy() {
+function selectEnemy() {
 	//on click, send images into the correct buckets
 	$('.enemy').on('click', function(event) {
 		//This is necessary to prevent mutliple enemies being selected at once
-		if (firstEnemy == 0) {
-			firstEnemy = 1;
-			firstAttack = 1;
+		if (isEnemySelected == 0) {
+			isEnemySelected = 1;
+			readyForAttack = 1;
 			//determine which enemy was clicked by obtaining the array index
-			firstEnemyID = this.id;
-			console.log("you selected the enemy " + charactersArray[firstEnemyID].name);
+			isEnemySelectedID = this.id;
+			// console.log("you selected the enemy " + charactersArray[isEnemySelectedID].name);
 		
 			//load variable to write the enemy character into the "Current Enemy" box
-			var selectedEnemy = ("<div id=" + firstEnemyID + " class='card currentEnemy'><h3>" + charactersArray[firstEnemyID].name + "</h3><img src=" + imgPath + charactersArray[firstEnemyID].image + " height=200px><h4>Health: " + charactersArray[firstEnemyID].health + "</h4></div>");
+			var selectedEnemy = ("<div id=" + isEnemySelectedID + " class='card currentEnemy'><h3>" + charactersArray[isEnemySelectedID].name + "</h3><img src=" + imgPath + charactersArray[isEnemySelectedID].image + " height=200px><h4>Health: " + charactersArray[isEnemySelectedID].health + "</h4></div>");
 			$( "#currentEnemyCard" ).append( selectedEnemy );
-			
+			$( "#currentEnemy").css("display", "block");
+			$( "#VS").css("display", "block");
+			$( "#attack").css("display", "block");
+			$( '#enameyWaitingList').html("Waiting for their chance to kill you");
 			//remove current enemy from all enemies box
 			this.remove();
 

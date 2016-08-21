@@ -34,6 +34,7 @@ header {
 #attack {
 	clear: both;
 	text-align: center;
+	display: none;
 }
 #currentEnemy {
 	width: 100%;
@@ -51,12 +52,12 @@ header {
 }
 #attackButton {
 	margin: 20px;
-	display: none;
+
 }
 #VS {
 	width: 100%;
 	height:400px;
-	margin-top: 178px;
+	padding-top: 146px;
 	display: none;
 }
 .col-md-2 {
@@ -66,4 +67,13 @@ h2 {
 	text-decoration: underline;
 	margin-bottom: 15px;
 	color: yellow;
+}
+#newGame {
+	clear: both;
+	text-align: center;
+	display: none;
+	height: 500px;
+}
+#playAgain {
+	margin-top: 200px;
 }
