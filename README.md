@@ -4,6 +4,8 @@ To Do
 center all images
 Move last enemy into current enemy field automatically
 Lock the attack button during animations
+Add a death animation
+Balance character stats
 
 
 Done 8/21/2016
