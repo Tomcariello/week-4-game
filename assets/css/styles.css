@@ -23,23 +23,20 @@ header {
 	/*width: 25%;*/
 }
 #human {
-	width: 100%;
 	height:400px;
-	float: left;
 	text-align: center;
 	display: none;
 	margin
 	/*background-color: green;*/
 }
+
 #attack {
 	clear: both;
 	text-align: center;
 	display: none;
 }
 #currentEnemy {
-	width: 100%;
 	height:400px;
-	float: left;
 	text-align: center;
 	display: none;
 	/*background-color: blue;*/
@@ -67,6 +64,13 @@ h2 {
 	text-decoration: underline;
 	margin-bottom: 15px;
 	color: yellow;
+	font-size:26px;
+}
+h3 {
+	font-size: 22px;
+}
+h4 {
+	font-size: 20px;	
 }
 #newGame {
 	clear: both;
@@ -76,4 +80,44 @@ h2 {
 }
 #playAgain {
 	margin-top: 200px;
+}
+#playerCard {
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  	transition: all 1s ease-in-out;
+}
+.playerCardAttack {
+	margin-left: 150px;
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  	transition: all 1s ease-in-out;
+}
+#playerDamageDealt {
+	height:400px;
+	padding-top: 146px;
+	font-size: 20px;
+	color: red;
+}
+
+
+#currentEnemyCard {
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  	transition: all 1s ease-in-out;
+}
+.enemyCardAttack {
+	margin-right: 150px;
+	-webkit-transition: all 1s ease-in-out;
+    -moz-transition: all 1s ease-in-out;
+    -o-transition: all 1s ease-in-out;
+  	transition: all 1s ease-in-out;
+}
+#enemyDamageDealt {
+	height:400px;
+	padding-top: 146px;
+	font-size: 20px;
+	color: red;
 }

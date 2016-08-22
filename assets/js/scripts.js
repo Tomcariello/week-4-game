@@ -100,6 +100,17 @@ function startGame() {
 		charactersArray[isEnemySelectedID].health = charactersArray[isEnemySelectedID].health - charactersArray[characterID].strength;
 		// console.log(charactersArray[isEnemySelectedID].name + " health is " + charactersArray[isEnemySelectedID].health);
 		
+		//animate the attack
+		$( '#playerCard').addClass('playerCardAttack');
+		
+		//List damage inflicted on the enemy
+		$('#playerDamageDealt').append("Attacks for " + charactersArray[characterID].strength + " points");
+
+		//wait 2 seconds, clear damage report and put playerCard back
+		setTimeout(function(){
+			$('#playerDamageDealt').html("");
+			$( '#playerCard').removeClass('playerCardAttack');
+		
 		//update Health displayed under enemy
 		rePrint = ("<div id=" + isEnemySelectedID + " class='card currentEnemy'><h3>" + charactersArray[isEnemySelectedID].name + "</h3><img src=" + imgPath + charactersArray[isEnemySelectedID].image + " height=200px><h4>Health: " + charactersArray[isEnemySelectedID].health + "</h4></div>");
 		$( "#currentEnemyCard" ).html("");
@@ -131,7 +142,7 @@ function startGame() {
 			$( "#currentEnemy").css("display", "none");
 			$( "#VS").css("display", "none");
 			$( "#currentEnemyCard" ).html("");
-			$( '#enameyWaitingList').html("Select your next opponent");
+			$( '#enemyWaitingList').html("Select your next opponent");
 			selectEnemy();
 			readyForAttack = 0;
 
@@ -140,6 +151,7 @@ function startGame() {
 		} else {
 			enemyAttack();
 		}
+		},2000); 
 	}
 	});
 // });
@@ -150,6 +162,27 @@ function enemyAttack() {
 		charactersArray[characterID].health = charactersArray[characterID].health - charactersArray[isEnemySelectedID].counterAttack;
 		console.log(charactersArray[isEnemySelectedID].name + " counter attacks for " + charactersArray[isEnemySelectedID].counterAttack + " points.");
 		
+
+
+
+
+
+		//animate the attack
+		$( '#currentEnemyCard').addClass('enemyCardAttack');
+		
+		//List damage inflicted on the enemy
+		$('#enemyDamageDealt').append("Attacks for " + charactersArray[isEnemySelectedID].strength + " points");
+
+		//wait 2 seconds, clear damage report and put playerCard back
+		setTimeout(function(){
+			$('#enemyDamageDealt').html("");
+			$( '#currentEnemyCard').removeClass('enemyCardAttack');
+
+
+
+
+
+
 		//update Health displayed under player
 		rePrint = ("<div id=" + characterID + " class='card currentEnemy'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
 		$( "#playerCard" ).html("");
@@ -181,6 +214,8 @@ function enemyAttack() {
 			readyForAttack = 0;
 			return;
 			}
+
+			},2000); 
 }
 
 
@@ -201,7 +236,7 @@ function selectEnemy() {
 			$( "#currentEnemy").css("display", "block");
 			$( "#VS").css("display", "block");
 			$( "#attack").css("display", "block");
-			$( '#enameyWaitingList').html("Waiting for their chance to kill you");
+			$( '#enemyWaitingList').html("Waiting for their chance to kill you");
 			//remove current enemy from all enemies box
 			this.remove();
 
