@@ -100,49 +100,33 @@ $('#attackButton').on('click', function(event) {
 			$('#playerDamageDealt').html("");
 			$( '#playerCard').removeClass('playerCardAttack');
 		
-			//update Health displayed under enemy
-			rePrint = ("<div id=" + isEnemySelectedID + " class='card currentEnemy'><h3>" + charactersArray[isEnemySelectedID].name + "</h3><img src=" + imgPath + charactersArray[isEnemySelectedID].image + " height=200px><h4>Health: " + charactersArray[isEnemySelectedID].health + "</h4></div>");
-			$( "#currentEnemyCard" ).html("");
-			$( "#currentEnemyCard" ).append( rePrint );
+		//update Health displayed under enemy
+		rePrint = ("<div id=" + isEnemySelectedID + " class='card currentEnemy'><h3>" + charactersArray[isEnemySelectedID].name + "</h3><img src=" + imgPath + charactersArray[isEnemySelectedID].image + " height=200px><h4>Health: " + charactersArray[isEnemySelectedID].health + "</h4></div>");
+		$( "#currentEnemyCard" ).html("");
+		$( "#currentEnemyCard" ).append( rePrint );
 
-			//increase players strength by original number.
-			charactersArray[characterID].strength = charactersArray[characterID].strength + initialStrength;
-			
-			//check for death
-			if (charactersArray[isEnemySelectedID].health < 1) {
-				alert(charactersArray[isEnemySelectedID].name + " is dead!");
-				numberOfEnemiesKilled++;
-				if (numberOfEnemiesKilled == 3) {
-					winTotal++;
-					$('#winTotal').html(winTotal);
-					$('#human').css("display","none");
-					$('#allCharacters').css("display","none");
+		//increase players strength by original number.
+		charactersArray[characterID].strength = charactersArray[characterID].strength + initialStrength;
+		
+		//check for death
+		if (charactersArray[isEnemySelectedID].health < 1) {
+			alert(charactersArray[isEnemySelectedID].name + " is dead!");
+			numberOfEnemiesKilled++;
+			if (numberOfEnemiesKilled == 3) {
+				winTotal++;
+				$('#winTotal').html(winTotal);
+				$('#human').css("display","none");
+				$('#allCharacters').css("display","none");
 
-					$('#human').css("display","none");
-					$('#VS').css("display","none");
-					$('#currentEnemy').css("display","none");
-					$('#attack').css("display","none");
-					$('#enemies').css("display","none");
-					$('#newGame').css("display","block");
-					return;
-				}
-
-<<<<<<< HEAD
-				isEnemySelected = 0;
-				$( "#currentEnemy").css("display", "none");
-				$( "#VS").css("display", "none");
-				$( "#currentEnemyCard" ).html("");
-				$( '#enemyWaitingList').html("Select your next opponent");
-				selectEnemy();
-				readyForAttack = 0;
-
-			//Are there enemies left??
-			
-			} else {
-				enemyAttack();
+				$('#human').css("display","none");
+				$('#VS').css("display","none");
+				$('#currentEnemy').css("display","none");
+				$('#attack').css("display","none");
+				$('#enemies').css("display","none");
+				$('#newGame').css("display","block");
+				return;
 			}
-		},2000); 
-=======
+
 			isEnemySelected = 0;
 			$( "#currentEnemy").css("display", "none");
 			$( "#VS").css("display", "none");
@@ -158,28 +142,11 @@ $('#attackButton').on('click', function(event) {
 			enemyAttack();
 		}
 	},2000); 
->>>>>>> bd2f47f3007e582542c15a8c660ee743c9098e39
 	}
 });
 
 
 function enemyAttack() {
-<<<<<<< HEAD
-		//Substract enemy's COUNTER from player's HEALTH
-		charactersArray[characterID].health = charactersArray[characterID].health - charactersArray[isEnemySelectedID].counterAttack;
-		console.log(charactersArray[isEnemySelectedID].name + " counter attacks for " + charactersArray[isEnemySelectedID].counterAttack + " points.");
-		
-		//animate the attack
-		$( '#currentEnemyCard').addClass('enemyCardAttack');
-		
-		//List damage inflicted on the enemy
-		$('#enemyDamageDealt').append("Attacks for " + charactersArray[isEnemySelectedID].strength + " points");
-
-		//wait 2 seconds, clear damage report and put playerCard back
-		setTimeout(function(){
-			$('#enemyDamageDealt').html("");
-			$( '#currentEnemyCard').removeClass('enemyCardAttack');
-=======
 	//Substract enemy's COUNTER from player's HEALTH
 	charactersArray[characterID].health = charactersArray[characterID].health - charactersArray[isEnemySelectedID].counterAttack;
 	
@@ -193,7 +160,6 @@ function enemyAttack() {
 	setTimeout(function(){
 		$('#enemyDamageDealt').html("");
 		$( '#currentEnemyCard').removeClass('enemyCardAttack');
->>>>>>> bd2f47f3007e582542c15a8c660ee743c9098e39
 
 		//update Health displayed under player
 		rePrint = ("<div id=" + characterID + " class='card currentEnemy'><h3>" + charactersArray[characterID].name + "</h3><img src=" + imgPath + charactersArray[characterID].image + " height=200px><h4>Health: " + charactersArray[characterID].health + "</h4></div>");
